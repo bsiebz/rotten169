@@ -7,9 +7,6 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @all_ratings = Movie.all_ratings
-    @checked_ratings = Array.new
-
     if params[:title_sort] == 'true'
       @movies = Movie.find(:all, :order => "title")
     elsif params[:date_sort] == 'true'
@@ -17,7 +14,8 @@ class MoviesController < ApplicationController
     else
       @movies = Movie.all
     end
-    
+    @all_ratings = Movie.uniq.pluck(:rating)
+    @selected_ratings = ['G', 'PG']
   end
 
   def new
