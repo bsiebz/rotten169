@@ -11,7 +11,7 @@ class MoviesController < ApplicationController
     if source == 'title'
       @movies = Movie.find(:all, :order => :title)
       
-    elsif source == 'release'
+    elsif source == 'release_date'
       @movies = Movies.find(:all, :order => :release_date)
       
     else 
