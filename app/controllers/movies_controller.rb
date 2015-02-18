@@ -9,10 +9,10 @@ class MoviesController < ApplicationController
   def index
     source = params[:source]
     if source == 'title'
-      @movies = Movie.order(:title)
+      @movies = Movie.find(:all, :order => :title)
       
     elsif source == 'release'
-      @movies = Movies.order(:release_date)
+      @movies = Movies.find(:all, :order => :release_date)
       
     else 
       @movies = Movie.all
