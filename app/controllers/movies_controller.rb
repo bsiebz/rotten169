@@ -7,17 +7,13 @@ class MoviesController < ApplicationController
   end
 
   def index
-    if params[:title_sort]
+    if params[:title_sort] == 'true'
       @movies = Movie.find(:all, :order => "title")
-      @sort = "title"
-    elsif params[:date_sort]
+    elsif params[:date_sort] == 'true'
       @movies = Movies.find(:all, :order => "release_date")
-      @sort = "release_date"
     else 
       @movies = Movie.all
-      @sort = "none"
     end
-    @all_ratings = Movie.uniq.pluck(:rating)
   end
 
   def new
