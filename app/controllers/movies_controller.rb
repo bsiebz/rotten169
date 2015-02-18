@@ -10,14 +10,12 @@ class MoviesController < ApplicationController
     source = params[:source]
     if source == 'title'
       @movies = Movie.find(:all, :order => :title)
-      
     elsif source == 'release_date'
       @movies = Movies.find(:all, :order => :release_date)
-      
     else 
       @movies = Movie.all
-      
     end
+    @all_ratings = Movie.uniq.pluck(:rating)
   end
 
   def new

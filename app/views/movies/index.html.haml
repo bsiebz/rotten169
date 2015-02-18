@@ -4,9 +4,9 @@
 %table#movies
   %thead
     %tr
-      %th{:class => ("hilite" if params[:source] == 'title')}= link_to "Movie Title", movies_path(:source => 'title') 
+      %th{:class => ("hilite" if params[:source] == 'title')}= link_to 'Movie Title', movies_path(:source => 'title') 
       %th Rating
-      %th{:class => ("hilite" if params[:source] == 'release_date')}= link_to "Release Date", movies_path(:source => 'release_date')
+      %th{:class => ("hilite" if params[:source] == 'release_date')}= link_to 'Release Date', movies_path(:source => 'release_date')
       %th More Info
   %tbody
     - @movies.each do |movie|
@@ -17,3 +17,10 @@
         %td= link_to "More about #{movie.title}", movie_path(movie)
 
 = link_to 'Add new movie', new_movie_path
+
+= form_tag movies_path, :method => :get do
+  Include:
+  - @all_ratings.each do |rating|
+    = rating
+    = check_box_tag "rating[#{rating}]"
+  = submit_tag 'Refresh'
