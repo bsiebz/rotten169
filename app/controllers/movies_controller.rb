@@ -7,10 +7,11 @@ class MoviesController < ApplicationController
   end
 
   def index
-    if params[:title_sort] == 'true'
+    source = params[:source]
+    if source == 'title'
       @movies = Movie.order(:title)
       
-    elsif params[:date_sort] == 'true'
+    elsif source == 'release'
       @movies = Movies.order(:release_date)
       
     else 
