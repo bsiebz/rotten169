@@ -7,13 +7,15 @@ class MoviesController < ApplicationController
   end
 
   def index
-    source = params[:source]
-    if source == 'title'
-      @movies = Movie.find(:all, :order => :title)
-    elsif source == 'release_date'
-      @movies = Movies.find(:all, :order => :release_date)
+    if params[:title_sort]
+      @movies = Movie.find(:all, :order => "title")
+      @sort = "title"
+    elsif params[:date_sort]
+      @movies = Movies.find(:all, :order => "release_date")
+      @sort = "release_date"
     else 
       @movies = Movie.all
+      @sort = "none"
     end
     @all_ratings = Movie.uniq.pluck(:rating)
   end
