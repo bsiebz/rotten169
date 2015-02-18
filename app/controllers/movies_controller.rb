@@ -15,6 +15,7 @@ class MoviesController < ApplicationController
       @movies = Movie.all
     end
     @all_ratings = Movie.uniq.pluck(:rating)
+    @selected_ratings = ['G', 'PG']
   end
 
   def new
