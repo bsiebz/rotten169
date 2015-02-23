@@ -28,11 +28,7 @@ class MoviesController < ApplicationController
     end 
 
     unless session[:sort_by] == nil then
-      if session[:sort_by].eql? "title" 
-          @hilite_title = "hilite" 
-      else
-          @hilite_date = "hilite"
-      end
+      (session[:sort_by].eql? 'title')? @hilite_title = "hilite": @hilite_date = "hilite"
     end
 
     unless session [:ratings] == nil then
@@ -43,7 +39,8 @@ class MoviesController < ApplicationController
       
     @movies = Movie.order(session[:sort_by])
     @all_ratings = Movie.list_of_ratings
-    @movies = movies.find(:all, :conditions => {:rating => @ratings_selected})
+    @selected_ratings = (session[:ratings] == nil) ?  Movie.list_of_ratings : session[:ratings].keys
+    @movies = @movies.find(:all,:conditions => {:rating => @selected_ratings})
   end
 
   def new
