@@ -30,12 +30,6 @@ class MoviesController < ApplicationController
     unless session[:sort_by] == nil then
       (session[:sort_by].eql? 'title')? @hilite_title = "hilite": @hilite_date = "hilite"
     end
-
-    unless session [:ratings] == nil then
-      @ratings_selected = session[:ratings].keys
-    else 
-      @ratings_selected = Movie.list_of_ratings
-    end
       
     @movies = Movie.order(session[:sort_by])
     @all_ratings = Movie.list_of_ratings
