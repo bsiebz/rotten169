@@ -7,19 +7,19 @@ class MoviesController < ApplicationController
   end
 
   def index
-    if params[:ratings] == nil and params[:sort_by] == nil 
+    if params[:ratings] == nil and params[:sort_by] == nil then
       unless session[:sort_by] == nil and session[:ratings] == nil
         redirect_to movies_path(:sort_by => session[:sort_by], :ratings => session[:ratings])
       end
     end
 
-    unless params[:ratings] == nil
+    unless params[:ratings] == nil then
       session[:ratings] = params[:ratings]
     else
       session[:ratings] = session[:ratings]
     end 
 
-    unless params[:sort_by] == nil
+    unless params[:sort_by] == nil then
       session[:sort_by] = params[:sort_by]
     else
       session[:sort_by] = session[:sort_by]
@@ -27,7 +27,7 @@ class MoviesController < ApplicationController
 
     end 
 
-    unless session[:sort_by] == nil
+    unless session[:sort_by] == nil then
       if session[:sort_by].eql? "title" 
           @hilite_title = "hilite" 
       else
@@ -35,7 +35,7 @@ class MoviesController < ApplicationController
       end
     end
 
-    unless session [:ratings] == nil
+    unless session [:ratings] == nil then
       @ratings_selected = session[:ratings].keys
     else 
       @ratings_selected = Movie.list_of_ratings
