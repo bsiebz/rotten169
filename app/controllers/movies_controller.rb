@@ -7,27 +7,36 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @all_ratings = Movie.all(:select => :rating).map(&:rating).uniq
-    @ratings = params[:ratings]
-    @movies = Movie.all
-
-    if @ratings != nil 
-      keys = @ratings.keys
-      session[:prev_ratings] = @ratings
-      @movies = Movie.where(:rating => keys)
-      if params[:sort_by] == "title"
-        @movies = Movie.order('title').where(:rating => keys)
-      elsif params[:sort_by] == "release_date"
-        @movies = Movie.order('release_date').where(:rating => keys)
+    if params[:ratings] == nil and params[:sort_by] == nil 
+      unless session[:sort_by] == nil and session[:ratings] == nil
+        redirect_to movies_path(:sort_by => session[:sort_by], :ratings => session[:ratings])
       end
-      return @movies
     end
-    if params[:sort_by] == "title"
-      @movies = Movie.find(:all, :order => 'title')
-    elsif params[:sort_by] == "release_date"
-      @movies = Movie.find(:all, :order => 'release_date')
+
+    unless params[:ratings] == nil
+      session[:ratings] = params[:ratings]
+    end 
+
+    unless params[:sort_by] == nil
+      session[:sort_by] = params[:sort_by]
+    end 
+
+    unless session[:sort_by] == nil
+      if session[:sort_by].eql? "title" 
+          @hilite_title = "hilite" 
+      else
+          @hilite_date = "hilite"
+      end
     end
-    return @movies
+
+    unless session [:ratings] == nil
+      @ratings_selected = session[:ratings].keys
+    else 
+      @ratings_selected = Movie.list_of_ratings
+      
+    @movies = Movie.order(session[:sort_by])
+    @all_ratings = Movie.list_of_ratings
+    @movies = movies.find(:all, :conditions => {:rating => @ratings_selected})
   end
 
   def new
