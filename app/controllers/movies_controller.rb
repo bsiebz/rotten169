@@ -33,6 +33,7 @@ class MoviesController < ApplicationController
       @ratings_selected = session[:ratings].keys
     else 
       @ratings_selected = Movie.list_of_ratings
+    end
       
     @movies = Movie.order(session[:sort_by])
     @all_ratings = Movie.list_of_ratings
