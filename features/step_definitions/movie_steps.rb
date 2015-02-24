@@ -35,7 +35,7 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
   end
 end
 
-Then /I should see all the movies/ do
+Then(/^I should see all of the movies$/) do
   # Make sure that all the movies in the app are visible in the table
   Movie.find(:all).each do |movie|
     title = movie["title"]
