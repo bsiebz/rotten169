@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(:version => 20150217220231) do
 
   create_table "movies", :force => true do |t|
     t.string   "title"
+    t.string   "director"
     t.datetime "release_date"
     t.string   "rating"
     t.text     "description"
