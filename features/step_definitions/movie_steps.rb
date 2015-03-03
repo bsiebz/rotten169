@@ -46,3 +46,8 @@ Then(/^I should see all of the movies$/) do
     end
   end
 end
+
+Then /the director of "(.*)" should be "(.*)"/  do |m1, d1|
+  @movie = Movie.find_by_title(m1)
+  assert (@movie.director == d1)
++end
