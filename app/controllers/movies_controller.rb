@@ -52,7 +52,7 @@ class MoviesController < ApplicationController
   end
 
   def similar
-    @movie = Movie.find_by_id(params[:id])
+    @movie = Movie.find params[:id]
     if (@movie.director.length == 0)
       flash[:notice] = "'#{@movie.title}' does not contain director name."
       redirect_to movies_path
