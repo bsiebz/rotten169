@@ -57,8 +57,6 @@ class MoviesController < ApplicationController
       flash[:notice] = "'#{@movie.title}' does not contain director name."
       redirect_to movies_path
     end
-    
     @movies = Movie.find_all_by_director(@movie.director)
   end
-
 end
